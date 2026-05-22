@@ -1,0 +1,42 @@
+name: Build with Nuitka
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install nuitka
+        pip install -r metro_time_requirements.txt
+
+    - name: Build
+      run: |
+        python -m nuitka `
+          --standalone `
+          --windows-console-mode=disable `
+          --include-data-files=metro_logo.png=metro_logo.png `
+          --include-data-files=logo.png=logo.png `
+          --windows-icon-from-ico=metro_logo.ico `
+          --output-filename=末班车查询 `
+          --jobs=2 `
+          --assume-yes-for-downloads `
+          --enable-plugin=pyqt6 `
+          metro_time.py
+
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: 末班车查询
+        path: metro_time.dist/
