@@ -28,6 +28,21 @@ def fetch_and_save_stations():
 		with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
 			future = executor.submit(requests.post, url, timeout=(2, 2))
 			response = future.result(timeout=2)   # 总超时 3 秒
+			lines = response.json()["businessObject"]
+
+			stations = []
+			for line in lines:
+				# 对每一行的 stations 列表进行遍历
+				for station in line['stations']:
+					station_name = station['stationName']
+					print(station_name)
+					if station_name not in stations:
+						stations.append(station_name)
+
+			print(len(stations))
+
+			with open('station.json', 'w', encoding='utf-8') as f:
+				json.dump(stations, f, ensure_ascii=False, indent=4)
 		# 后续解析和保存...
 	except concurrent.futures.TimeoutError:
 		print("请求超过 2 秒（可能 DNS 解析慢），已强制超时")
