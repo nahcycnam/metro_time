@@ -85,7 +85,7 @@ class MetroApp(QMainWindow):
         self.end_input.setFocus()
 
     def set_app_icon(self):
-        icon_path = resource_path("metro_logo.png")
+        icon_path = resource_path("metro_logo.ico")
         if os.path.exists(icon_path):
             self.setWindowIcon(QIcon(icon_path))
         else:
@@ -373,7 +373,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # 设置应用图标
-    icon_path = resource_path("metro_logo.png")
+    icon_path = resource_path("metro_logo.ico")
     if os.path.exists(icon_path):
         app.setWindowIcon(QIcon(icon_path))
     else:
