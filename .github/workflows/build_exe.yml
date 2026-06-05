@@ -26,8 +26,8 @@ jobs:
         python -m nuitka `
           --standalone `
           --windows-console-mode=disable `
-          --include-data-files=metro_logo.png=metro_logo.png `
-          --include-data-files=logo.png=logo.png `
+          --include-data-files=metro_logo.ico=metro_logo.ico `
+          --include-data-files=metro_logo.ico=metro_logo.ico `
           --windows-icon-from-ico=metro_logo.ico `
           --output-filename=末班车查询 `
           --jobs=2 `
